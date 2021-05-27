@@ -36,6 +36,14 @@ $floor.watch(floor => {
     }
 });
 
+$target.watch(target => {
+    if (target > $ceiling.current) {
+        $targetStr.setSync(String($ceiling.current));
+    } else if (target < $floor.current) {
+        $targetStr.setSync(String($floor.current));
+    }
+});
+
 document.body.appendChild(
     h('div', {
         id: 'app',

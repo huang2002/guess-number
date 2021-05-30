@@ -37,6 +37,9 @@ $floor.watch(floor => {
 });
 
 $target.watch(target => {
+    if ($status.current !== 'init') {
+        return;
+    }
     if (target > $ceiling.current) {
         $targetStr.setSync(String($ceiling.current));
     } else if (target < $floor.current) {
@@ -76,6 +79,13 @@ document.body.appendChild(
                         case 'guess': {
                             const target = $target.current;
                             if (!$targetStr.current) {
+                                break;
+                            }
+                            if (
+                                target > $ceiling.current
+                                || target < $floor.current
+                        ) {
+                                alert('无效输入！');
                                 break;
                             }
                             if (target > realTarget) {
